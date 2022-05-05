@@ -30,7 +30,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: build-assets
-        path: build
+        path: build/
   
   production-deployment:
     runs-on: ubuntu-latest
@@ -41,6 +41,8 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build-assets
+      - name: Display structure of downloaded files
+        run: ls -R
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@main
         env:
