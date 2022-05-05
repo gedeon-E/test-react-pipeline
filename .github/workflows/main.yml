@@ -41,6 +41,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build-assets
+          path: build/
       - name: Display structure of downloaded files
         run: ls -R
       - name: Deploy to Server
