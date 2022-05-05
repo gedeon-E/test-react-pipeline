@@ -18,5 +18,12 @@ jobs:
         node-version: 16.13
         cache: 'npm'
     - run: npm ci
+    - run: npm install
     - run: npm run build --if-present
-    - run: echo github.ref
+    - run: echo ${{github.ref}}
+  
+  production-deployment:
+    if: github.repository == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Wait for deployment"
