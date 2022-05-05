@@ -26,13 +26,21 @@ jobs:
     - run: npm install
     - run: cp .env.production .env
     - run: npm run build --if-present
-    - run: echo ${{github.ref}}
+    - name: Store build assets
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-assets
+        path: build
   
   production-deployment:
     runs-on: ubuntu-latest
     environment: production
     needs: build
     steps:
+      - name: Download build assets
+        uses: actions/download-artifact@v3
+        with:
+          name: build-assets
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@main
         env:
